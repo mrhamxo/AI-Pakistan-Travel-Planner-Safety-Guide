@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+*.db
+*.sqlite
+*.sqlite3
+.cursor
+
+# Environment variables
+.env
+.env.local
+
+# Node
+node_modules/
+dist/
+build/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+backend/travel_safety.db
+*.db-journal

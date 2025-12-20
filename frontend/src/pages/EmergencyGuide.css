@@ -1,0 +1,487 @@
+.emergency-guide {
+  max-width: 1000px;
+  margin: 0 auto;
+  color: white;
+}
+
+.guide-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.guide-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.guide-header p {
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+/* Region Selector */
+.region-selector {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.region-btn {
+  padding: 0.6rem 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.region-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.region-btn.active {
+  background: white;
+  color: #667eea;
+  border-color: white;
+}
+
+/* Emergency Numbers */
+.emergency-numbers {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.emergency-numbers h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.number-card {
+  text-align: center;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  color: white;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.number-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.number-card.regional {
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+}
+
+.number-card.regional:hover {
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.number {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.35rem;
+}
+
+.service-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.service-type {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  margin-top: 0.25rem;
+}
+
+/* Emergency Tips */
+.emergency-tips {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.emergency-tips h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.tip-section {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.tip-section h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.tip-icon {
+  width: 20px;
+  height: 20px;
+  color: #667eea;
+}
+
+.tip-section ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.tip-section li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  color: #555;
+  position: relative;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.tip-section li:last-child {
+  border-bottom: none;
+}
+
+.tip-section li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #667eea;
+}
+
+.section-icon {
+  width: 24px;
+  height: 24px;
+  color: #667eea;
+}
+
+/* Critical Info */
+.critical-info {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.critical-info h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.info-card {
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-card.altitude {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+}
+
+.info-card.altitude svg {
+  color: #1565c0;
+  flex-shrink: 0;
+}
+
+.info-card.connectivity {
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+}
+
+.info-card.connectivity svg {
+  color: #7b1fa2;
+  flex-shrink: 0;
+}
+
+.info-card.fuel {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+}
+
+.info-card.fuel svg {
+  color: #2e7d32;
+  flex-shrink: 0;
+}
+
+.info-card h4 {
+  margin: 0.75rem 0 0.5rem;
+  color: #333;
+  word-wrap: break-word;
+}
+
+.info-card > p {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+  word-wrap: break-word;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.info-card li {
+  font-size: 0.8rem;
+  color: #555;
+  padding: 0.35rem 0;
+  padding-left: 1rem;
+  position: relative;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.info-card li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #888;
+}
+
+/* Offline Section */
+.offline-section {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.offline-section h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.offline-intro {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.offline-checklist {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checklist-item:hover {
+  background: #f0f4ff;
+}
+
+.checklist-item input {
+  margin-top: 0.15rem;
+}
+
+.checklist-item span {
+  color: #444;
+  font-size: 0.9rem;
+}
+
+/* API Tips */
+.api-tips {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.api-tips h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.api-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.api-tips li {
+  padding: 0.75rem 1rem;
+  padding-left: 2rem;
+  background: #f0fff4;
+  border-radius: 10px;
+  color: #2e7d32;
+  font-size: 0.9rem;
+  position: relative;
+}
+
+.api-tips li::before {
+  content: '✓';
+  position: absolute;
+  left: 0.75rem;
+  font-weight: bold;
+}
+
+/* Safety Reminder */
+.safety-reminder {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(255, 152, 0, 0.2) 100%);
+  border-left: 4px solid #ffc107;
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  margin-top: 2rem;
+}
+
+.safety-reminder h3 {
+  margin-bottom: 0.75rem;
+  color: white;
+}
+
+.safety-reminder p {
+  line-height: 1.6;
+  opacity: 0.95;
+  margin-bottom: 0.5rem;
+}
+
+.safety-reminder strong {
+  color: #ffc107;
+}
+
+.reminder-note {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+/* Responsive - Medium screens */
+@media (max-width: 1024px) {
+  .info-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .info-card {
+    padding: 1rem;
+  }
+  
+  .info-card li {
+    font-size: 0.75rem;
+  }
+}
+
+/* Responsive - Tablets */
+@media (max-width: 900px) {
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .info-card.fuel {
+    grid-column: span 2;
+    max-width: 400px;
+    justify-self: center;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .info-card.fuel {
+    grid-column: span 1;
+    max-width: none;
+  }
+
+  .offline-checklist {
+    grid-template-columns: 1fr;
+  }
+
+  .api-tips ul {
+    grid-template-columns: 1fr;
+  }
+
+  .numbers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .critical-info {
+    padding: 1.5rem;
+  }
+  
+  .info-card {
+    padding: 1.25rem;
+  }
+  
+  .info-card li {
+    font-size: 0.85rem;
+  }
+}
