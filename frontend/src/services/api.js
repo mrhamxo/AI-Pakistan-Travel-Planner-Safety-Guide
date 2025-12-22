@@ -3,10 +3,8 @@ import axios from 'axios'
 // Production URL from environment variable, fallback to localhost for development
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
-// Log API URL in development for debugging
-if (import.meta.env.DEV) {
-  console.log('API Base URL:', API_BASE_URL)
-}
+// Log API URL for debugging (both dev and prod)
+console.log('🔗 API Base URL:', API_BASE_URL)
 
 const api = axios.create({
   baseURL: API_BASE_URL,
