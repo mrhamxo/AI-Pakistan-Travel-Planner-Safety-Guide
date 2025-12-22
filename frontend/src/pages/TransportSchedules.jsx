@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Bus, Clock, MapPin, Building2, RefreshCw, Search, Filter, ChevronDown, ChevronUp } from 'lucide-react'
+import api from '../services/api'
 import './TransportSchedules.css'
-
-const API_BASE = 'http://127.0.0.1:8000'
 
 function TransportSchedules() {
   const [schedules, setSchedules] = useState([])
@@ -22,14 +21,13 @@ function TransportSchedules() {
     setLoading(true)
     setError(null)
     try {
-      const response = await fetch(`${API_BASE}/api/transport/schedules`)
-      if (!response.ok) throw new Error('Failed to fetch schedules')
-      const data = await response.json()
+      const response = await api.get('/api/transport/schedules')
+      const data = response.data
       setSchedules(data.schedules || [])
       setOperators(data.operators || [])
       setTransportOptions(data.transport_options || [])
     } catch (err) {
-      setError(err.message)
+      setError(err.response?.data?.detail || err.message || 'Failed to fetch schedules')
     } finally {
       setLoading(false)
     }
