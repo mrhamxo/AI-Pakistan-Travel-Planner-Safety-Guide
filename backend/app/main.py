@@ -171,13 +171,13 @@ app = FastAPI(
 default_origins = (
     "http://localhost:3000,"
     "http://localhost:5173,"
-    "https://*.vercel.app,"
-    "https://ai-pakistan-travel-frontend.vercel.app"
+    "http://localhost:3001,"
+    "https://ai-pakistan-travel-planner-safety-g.vercel.app"
 )
 cors_origins_env = os.getenv("CORS_ORIGINS", default_origins).split(",")
 # Strip whitespace from origins
 cors_origins = [origin.strip() for origin in cors_origins_env if origin.strip()]
-# Check if we need to allow all origins (for PythonAnywhere compatibility)
+# Check if we need to allow all origins (for cloud deployment compatibility)
 allow_all_origins = os.getenv("CORS_ALLOW_ALL", "false").lower() == "true"
 if allow_all_origins:
     cors_origins = ["*"]
