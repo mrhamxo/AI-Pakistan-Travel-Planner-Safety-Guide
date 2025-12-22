@@ -113,6 +113,47 @@ SAFETY_ALERTS = [
     {"alert_type": "protest", "region": "Islamabad", "severity": "low", "description": "Occasional road blocks near Red Zone", "is_active": True},
 ]
 
+# Transport routes with bus schedules
+TRANSPORT_ROUTES = [
+    # Daewoo Express routes
+    {"route_code": "DW-ISB-LHR", "operator": "Daewoo Express", "departure_times": ["06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00"], "frequency": "Every 2 hours"},
+    {"route_code": "DW-ISB-KHI", "operator": "Daewoo Express", "departure_times": ["07:00", "15:00", "21:00"], "frequency": "3 times daily"},
+    {"route_code": "DW-ISB-MLT", "operator": "Daewoo Express", "departure_times": ["08:00", "14:00", "20:00"], "frequency": "3 times daily"},
+    {"route_code": "DW-LHR-KHI", "operator": "Daewoo Express", "departure_times": ["06:00", "12:00", "18:00", "22:00"], "frequency": "4 times daily"},
+    
+    # Faisal Movers routes
+    {"route_code": "FM-ISB-LHR", "operator": "Faisal Movers", "departure_times": ["05:30", "07:30", "09:30", "11:30", "13:30", "15:30", "17:30", "19:30", "21:30"], "frequency": "Every 2 hours"},
+    {"route_code": "FM-ISB-MLT", "operator": "Faisal Movers", "departure_times": ["07:00", "13:00", "19:00"], "frequency": "3 times daily"},
+    {"route_code": "FM-LHR-FSB", "operator": "Faisal Movers", "departure_times": ["06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00"], "frequency": "Every 2 hours"},
+    {"route_code": "FM-LHR-MLT", "operator": "Faisal Movers", "departure_times": ["06:00", "09:00", "12:00", "15:00", "18:00", "21:00"], "frequency": "Every 3 hours"},
+    
+    # NATCO (Northern Areas Transport)
+    {"route_code": "NATCO-ISB-GLT", "operator": "NATCO", "departure_times": ["05:00", "06:00"], "frequency": "2 departures daily"},
+    {"route_code": "NATCO-ISB-SKD", "operator": "NATCO", "departure_times": ["05:00"], "frequency": "1 departure daily"},
+    {"route_code": "NATCO-GLT-HNZ", "operator": "NATCO", "departure_times": ["07:00", "09:00", "14:00"], "frequency": "3 times daily"},
+    {"route_code": "NATCO-GLT-SKD", "operator": "NATCO", "departure_times": ["06:00", "08:00"], "frequency": "2 times daily"},
+    
+    # Skyways
+    {"route_code": "SKY-ISB-LHR", "operator": "Skyways", "departure_times": ["07:00", "11:00", "15:00", "19:00"], "frequency": "4 times daily"},
+    {"route_code": "SKY-ISB-PSH", "operator": "Skyways", "departure_times": ["06:00", "08:00", "10:00", "12:00", "14:00", "16:00", "18:00"], "frequency": "Every 2 hours"},
+    
+    # Swat Coaches
+    {"route_code": "SWT-ISB-SWT", "operator": "Swat Coaches", "departure_times": ["06:00", "08:00", "10:00", "14:00", "16:00"], "frequency": "5 times daily"},
+    {"route_code": "SWT-PSH-SWT", "operator": "Swat Coaches", "departure_times": ["07:00", "09:00", "11:00", "13:00", "15:00", "17:00"], "frequency": "Every 2 hours"},
+    {"route_code": "SWT-SWT-KLM", "operator": "Swat Coaches", "departure_times": ["08:00", "10:00", "14:00"], "frequency": "3 times daily"},
+    
+    # New Khan Road Runners
+    {"route_code": "NKRR-ISB-RWP", "operator": "New Khan Road Runners", "departure_times": ["06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"], "frequency": "Every hour"},
+    
+    # Bilal Travels
+    {"route_code": "BT-LHR-RWP", "operator": "Bilal Travels", "departure_times": ["05:00", "07:00", "09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00"], "frequency": "Every 2 hours"},
+    {"route_code": "BT-ISB-FSB", "operator": "Bilal Travels", "departure_times": ["06:00", "10:00", "14:00", "18:00"], "frequency": "4 times daily"},
+    
+    # Kohistan Bus Service  
+    {"route_code": "KBS-ISB-CHT", "operator": "Kohistan Bus Service", "departure_times": ["05:00", "06:00"], "frequency": "2 departures daily"},
+    {"route_code": "KBS-PSH-CHT", "operator": "Kohistan Bus Service", "departure_times": ["06:00", "08:00"], "frequency": "2 times daily"},
+]
+
 
 def seed_database():
     """Seed the database with initial data."""
@@ -121,6 +162,7 @@ def seed_database():
     
     try:
         # Clear existing data
+        db.query(TransportRoute).delete()
         db.query(TransportOption).delete()
         db.query(Route).delete()
         db.query(SafetyAlert).delete()
@@ -156,6 +198,20 @@ def seed_database():
             )
             db.add(option)
         
+        # Seed transport routes (bus schedules)
+        import json
+        from datetime import datetime
+        for tr in TRANSPORT_ROUTES:
+            transport_route = TransportRoute(
+                route_code=tr["route_code"],
+                operator=tr["operator"],
+                departure_times=json.dumps(tr["departure_times"]),
+                frequency=tr["frequency"],
+                is_active=True,
+                last_verified=datetime.now(),
+            )
+            db.add(transport_route)
+        
         # Seed safety alerts
         for a in SAFETY_ALERTS:
             alert = SafetyAlert(
@@ -170,6 +226,7 @@ def seed_database():
         db.commit()
         print(f"[OK] Seeded {len(ROUTES)} routes")
         print(f"[OK] Seeded {len(TRANSPORT_OPTIONS)} transport options")
+        print(f"[OK] Seeded {len(TRANSPORT_ROUTES)} transport routes (bus schedules)")
         print(f"[OK] Seeded {len(SAFETY_ALERTS)} safety alerts")
         print("Database seeding complete!")
         

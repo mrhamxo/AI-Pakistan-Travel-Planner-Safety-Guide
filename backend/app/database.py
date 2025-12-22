@@ -34,5 +34,22 @@ def get_db():
 
 
 def init_db():
-    """Initialize database tables"""
+    """Initialize database tables and seed data if empty"""
     Base.metadata.create_all(bind=engine)
+    
+    # Check if database needs seeding
+    db = SessionLocal()
+    try:
+        from app.models.transport import TransportRoute
+        route_count = db.query(TransportRoute).count()
+        if route_count == 0:
+            print("Database is empty, seeding with initial data...")
+            db.close()
+            # Import and run seed function
+            from app.seed_data import seed_database
+            seed_database()
+        else:
+            db.close()
+    except Exception as e:
+        db.close()
+        print(f"Note: Could not check/seed database: {e}")
