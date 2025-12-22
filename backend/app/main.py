@@ -167,7 +167,16 @@ app = FastAPI(
 )
 
 # CORS middleware
-cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:5173").split(",")
+# Default origins include localhost for development and Render domains for production
+default_origins = (
+    "http://localhost:3000,"
+    "http://localhost:5173,"
+    "https://pakistan-travel-guide.onrender.com,"
+    "https://ai-pakistan-travel-frontend.onrender.com"
+)
+cors_origins = os.getenv("CORS_ORIGINS", default_origins).split(",")
+# Strip whitespace from origins
+cors_origins = [origin.strip() for origin in cors_origins if origin.strip()]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins,

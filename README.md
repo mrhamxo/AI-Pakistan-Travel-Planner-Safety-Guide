@@ -301,6 +301,29 @@ Full API documentation at `/docs` when running.
 - [ARCHITECTURE.md](ARCHITECTURE.md) - Technical architecture
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - Full project overview
 - [SETUP.md](SETUP.md) - Detailed setup guide
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Deploy to cloud (Render)
+
+---
+
+## 🚀 Deploy to Cloud (Free)
+
+This project is configured for **one-click deployment** to Render (100% free tier).
+
+### Quick Deploy
+
+1. Push code to GitHub
+2. Go to [Render Dashboard](https://dashboard.render.com)
+3. Click **New** → **Blueprint**
+4. Connect your repo (auto-detects `render.yaml`)
+5. Set `GROQ_API_KEY` environment variable
+6. Done! Your app is live.
+
+**Live URLs after deployment:**
+- Frontend: `https://pakistan-travel-guide.onrender.com`
+- Backend API: `https://pakistan-travel-api.onrender.com`
+- API Docs: `https://pakistan-travel-api.onrender.com/docs`
+
+📖 See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
 
 ---
 
