@@ -302,12 +302,20 @@ Full API documentation at `/docs` when running.
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - Full project overview
 - [SETUP.md](SETUP.md) - Detailed setup guide
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Deploy to cloud (Free, No CC)
+- [PROJECT_DOCUMENT.md](PROJECT_DOCUMENT.md) - Complete project documentation (PDF-ready)
 
 ---
 
 ## 🚀 Deploy to Cloud (Free - No Credit Card)
 
-Deploy for **FREE** using **Vercel** (frontend) + **Railway** (backend).
+Deploy for **FREE** using **Vercel** (frontend) + **Koyeb** (backend).
+
+### Live Demo
+
+| Service | URL |
+|---------|-----|
+| **Frontend** | https://ai-pakistan-travel-planner-safety-g.vercel.app |
+| **Backend API** | https://productive-ludovika-hamza-student-beee9ced.koyeb.app |
 
 ### Quick Deploy
 
@@ -315,7 +323,7 @@ Deploy for **FREE** using **Vercel** (frontend) + **Railway** (backend).
 |------|--------|
 | 1 | Push code to GitHub |
 | 2 | Deploy frontend on [Vercel](https://vercel.com) (free, no CC) |
-| 3 | Deploy backend on [Railway](https://railway.app) ($5 free credit, no CC) |
+| 3 | Deploy backend on [Koyeb](https://koyeb.com) (free, no CC) |
 | 4 | Set `GROQ_API_KEY` environment variable |
 | 5 | Done! 🎉 |
 
@@ -324,7 +332,7 @@ Deploy for **FREE** using **Vercel** (frontend) + **Railway** (backend).
 | Platform | For | Credit Card |
 |----------|-----|-------------|
 | **Vercel** | Frontend | ❌ Not required |
-| **Railway** | Backend | ❌ Not required |
+| **Koyeb** | Backend | ❌ Not required |
 | **Groq** | AI/LLM | ❌ Not required |
 
 📖 See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step instructions.
