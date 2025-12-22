@@ -167,16 +167,20 @@ app = FastAPI(
 )
 
 # CORS middleware
-# Default origins include localhost for development and Render domains for production
+# Default origins include localhost for development and Vercel domains for production
 default_origins = (
     "http://localhost:3000,"
     "http://localhost:5173,"
-    "https://pakistan-travel-guide.onrender.com,"
-    "https://ai-pakistan-travel-frontend.onrender.com"
+    "https://*.vercel.app,"
+    "https://ai-pakistan-travel-frontend.vercel.app"
 )
-cors_origins = os.getenv("CORS_ORIGINS", default_origins).split(",")
+cors_origins_env = os.getenv("CORS_ORIGINS", default_origins).split(",")
 # Strip whitespace from origins
-cors_origins = [origin.strip() for origin in cors_origins if origin.strip()]
+cors_origins = [origin.strip() for origin in cors_origins_env if origin.strip()]
+# Check if we need to allow all origins (for PythonAnywhere compatibility)
+allow_all_origins = os.getenv("CORS_ALLOW_ALL", "false").lower() == "true"
+if allow_all_origins:
+    cors_origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins,
@@ -838,7 +842,7 @@ async def get_transport_schedules(
     schedules = []
     for route in routes:
         try:
-            departure_times = json.loads(route.departure_times) if route.departure_times else []
+            departure_times = json.loads(str(route.departure_times)) if route.departure_times is not None else []
         except (json.JSONDecodeError, TypeError):
             departure_times = []
         
@@ -849,7 +853,7 @@ async def get_transport_schedules(
             "departure_times": departure_times,
             "frequency": route.frequency,
             "is_active": route.is_active,
-            "last_verified": route.last_verified.isoformat() if route.last_verified else None,
+            "last_verified": route.last_verified.isoformat() if route.last_verified is not None else None,
         })
     
     # Format transport options
@@ -887,7 +891,7 @@ async def get_transport_operators(db: Session = Depends(get_db)):
     for route in routes:
         if route.operator not in operators:
             try:
-                times = json.loads(route.departure_times) if route.departure_times else []
+                times = json.loads(str(route.departure_times)) if route.departure_times is not None else []
             except (json.JSONDecodeError, TypeError):
                 times = []
             
@@ -899,7 +903,7 @@ async def get_transport_operators(db: Session = Depends(get_db)):
         
         operators[route.operator]["routes"].append(route.route_code)
         try:
-            times = json.loads(route.departure_times) if route.departure_times else []
+            times = json.loads(str(route.departure_times)) if route.departure_times is not None else []
             operators[route.operator]["total_departures"] += len(times)
         except (json.JSONDecodeError, TypeError):
             pass

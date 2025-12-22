@@ -301,29 +301,33 @@ Full API documentation at `/docs` when running.
 - [ARCHITECTURE.md](ARCHITECTURE.md) - Technical architecture
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - Full project overview
 - [SETUP.md](SETUP.md) - Detailed setup guide
-- [DEPLOYMENT.md](DEPLOYMENT.md) - Deploy to cloud (Render)
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Deploy to cloud (Free, No CC)
 
 ---
 
-## 🚀 Deploy to Cloud (Free)
+## 🚀 Deploy to Cloud (Free - No Credit Card)
 
-This project is configured for **one-click deployment** to Render (100% free tier).
+Deploy for **FREE** using **Vercel** (frontend) + **Railway** (backend).
 
 ### Quick Deploy
 
-1. Push code to GitHub
-2. Go to [Render Dashboard](https://dashboard.render.com)
-3. Click **New** → **Blueprint**
-4. Connect your repo (auto-detects `render.yaml`)
-5. Set `GROQ_API_KEY` environment variable
-6. Done! Your app is live.
+| Step | Action |
+|------|--------|
+| 1 | Push code to GitHub |
+| 2 | Deploy frontend on [Vercel](https://vercel.com) (free, no CC) |
+| 3 | Deploy backend on [Railway](https://railway.app) ($5 free credit, no CC) |
+| 4 | Set `GROQ_API_KEY` environment variable |
+| 5 | Done! 🎉 |
 
-**Live URLs after deployment:**
-- Frontend: `https://pakistan-travel-guide.onrender.com`
-- Backend API: `https://pakistan-travel-api.onrender.com`
-- API Docs: `https://pakistan-travel-api.onrender.com/docs`
+### Platforms (All Free)
 
-📖 See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+| Platform | For | Credit Card |
+|----------|-----|-------------|
+| **Vercel** | Frontend | ❌ Not required |
+| **Railway** | Backend | ❌ Not required |
+| **Groq** | AI/LLM | ❌ Not required |
+
+📖 See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step instructions.
 
 ---
 

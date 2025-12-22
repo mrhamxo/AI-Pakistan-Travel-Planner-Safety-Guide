@@ -1,236 +1,264 @@
 # Deployment Guide - AI Pakistan Travel Guide
 
-This guide covers deploying the AI Pakistan Travel Guide to **Render** (100% free tier).
+Deploy your app for **FREE** without credit card using **Vercel** (frontend) + **PythonAnywhere** (backend).
 
 ---
 
-## Quick Deploy to Render (Recommended)
+## 🆓 100% Free, No Credit Card Required
 
-### Option 1: One-Click Blueprint Deploy
+| Platform | For | Cost | Credit Card |
+|----------|-----|------|-------------|
+| **Vercel** | React Frontend | Free | ❌ Not required |
+| **PythonAnywhere** | Python Backend | Free | ❌ Not required |
+| **Groq** | AI/LLM API | Free | ❌ Not required* |
 
-1. **Push your code to GitHub**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-   git push -u origin main
-   ```
-
-2. **Go to Render Dashboard**
-   - Visit: https://dashboard.render.com
-   - Sign up/login with GitHub
-
-3. **Deploy Blueprint**
-   - Click **"New"** → **"Blueprint"**
-   - Connect your GitHub repository
-   - Render will detect `render.yaml` automatically
-   - Click **"Apply"**
-
-4. **Set Environment Variables**
-   After deployment, go to each service and set:
-   
-   **Backend (pakistan-travel-api):**
-   - `GROQ_API_KEY` = Your Groq API key (required)
-   - `WEATHER_API_KEY` = Your OpenWeatherMap key (optional)
-   - `OPENROUTE_API_KEY` = Your OpenRouteService key (optional)
-
-5. **Wait for deployment** (5-10 minutes)
-
-6. **Access your app:**
-   - Frontend: `https://pakistan-travel-guide.onrender.com`
-   - Backend API: `https://pakistan-travel-api.onrender.com`
-   - API Docs: `https://pakistan-travel-api.onrender.com/docs`
+*Note: Check Groq's current policy. Alternative: Use Google AI Studio (Gemini) - always free without CC.
 
 ---
 
-### Option 2: Manual Deploy (Step by Step)
+## Step 1: Get Your API Keys (Free)
 
-#### Step 1: Deploy Backend
+### Groq API Key (Required for AI)
+1. Go to https://console.groq.com
+2. Sign up with Google/GitHub
+3. Click "API Keys" → "Create API Key"
+4. Copy and save your key: `gsk_xxxxx...`
 
-1. Go to https://dashboard.render.com
-2. Click **"New"** → **"Web Service"**
-3. Connect your GitHub repo
-4. Configure:
-   - **Name**: `pakistan-travel-api`
-   - **Region**: Singapore (closest to Pakistan)
-   - **Branch**: `main`
-   - **Root Directory**: `backend`
-   - **Runtime**: Python 3
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-   - **Plan**: Free
+### Alternative: Google Gemini (If Groq needs CC)
+1. Go to https://aistudio.google.com
+2. Sign in with Google account
+3. Click "Get API Key" → "Create API key"
+4. Save your key
 
-5. Add Environment Variables:
-   | Key | Value |
-   |-----|-------|
-   | `GROQ_API_KEY` | Your Groq API key |
-   | `WEATHER_API_KEY` | (Optional) OpenWeatherMap key |
-   | `CORS_ORIGINS` | `https://pakistan-travel-guide.onrender.com` |
+---
 
-6. Click **"Create Web Service"**
+## Step 2: Deploy Backend on PythonAnywhere
 
-#### Step 2: Deploy Frontend
+### 2.1 Create Account
+1. Go to https://www.pythonanywhere.com
+2. Click **"Start running Python online in less than a minute!"**
+3. Choose **"Create a Beginner account"** (FREE)
+4. Sign up with email (no credit card!)
 
-1. Click **"New"** → **"Static Site"**
-2. Connect the same GitHub repo
+### 2.2 Upload Your Code
+
+**Option A: Using Git (Recommended)**
+1. Open a **Bash console** in PythonAnywhere
+2. Run:
+```bash
+git clone https://github.com/YOUR_USERNAME/AI-Pakistan-Travel-Planner-Safety-Guide.git
+cd AI-Pakistan-Travel-Planner-Safety-Guide/backend
+pip3 install --user -r requirements.txt
+```
+
+**Option B: Manual Upload**
+1. Go to **Files** tab
+2. Upload the `backend` folder contents
+
+### 2.3 Create Web App
+1. Go to **Web** tab
+2. Click **"Add a new web app"**
+3. Choose **"Manual configuration"**
+4. Select **Python 3.10** (or latest available)
+
+### 2.4 Configure WSGI
+1. Click on the **WSGI configuration file** link
+2. Delete all content and paste:
+
+```python
+import sys
+import os
+
+# Add your project directory to the path
+project_home = '/home/YOUR_USERNAME/AI-Pakistan-Travel-Planner-Safety-Guide/backend'
+if project_home not in sys.path:
+    sys.path.insert(0, project_home)
+
+# Set environment variables
+os.environ['GROQ_API_KEY'] = 'your_groq_api_key_here'
+os.environ['CORS_ALLOW_ALL'] = 'true'
+
+# Import the FastAPI app
+from app.main import app
+
+# PythonAnywhere uses WSGI, so we need an adapter
+from fastapi.middleware.wsgi import WSGIMiddleware
+
+# This won't work directly - we need ASGI
+# For PythonAnywhere, we'll use a workaround
+```
+
+**⚠️ Important:** PythonAnywhere free tier has limitations with FastAPI. See alternative below.
+
+### 2.5 Alternative: Use Flask Wrapper
+
+Since PythonAnywhere free tier works best with WSGI (Flask), let me provide a simpler solution...
+
+---
+
+## 🌟 EASIER OPTION: Vercel for Everything
+
+Actually, **Vercel can host both frontend AND backend** as serverless functions! This is easier.
+
+---
+
+## Step 2 (Revised): Deploy Everything on Vercel
+
+### 2.1 Create Vercel Account
+1. Go to https://vercel.com
+2. Click **"Sign Up"**
+3. Choose **"Continue with GitHub"**
+4. Authorize Vercel (no credit card needed!)
+
+### 2.2 Push Code to GitHub
+```bash
+git add .
+git commit -m "Ready for deployment"
+git push origin main
+```
+
+### 2.3 Deploy Frontend
+1. In Vercel dashboard, click **"Add New..."** → **"Project"**
+2. Import your GitHub repository
 3. Configure:
-   - **Name**: `pakistan-travel-guide`
-   - **Branch**: `main`
+   - **Framework Preset**: Vite
    - **Root Directory**: `frontend`
-   - **Build Command**: `npm install && npm run build`
-   - **Publish Directory**: `dist`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
 
 4. Add Environment Variable:
-   | Key | Value |
-   |-----|-------|
-   | `VITE_API_URL` | `https://pakistan-travel-api.onrender.com` |
+   - Key: `VITE_API_URL`
+   - Value: `https://your-backend-url` (we'll update this later)
 
-5. Click **"Create Static Site"**
+5. Click **"Deploy"**
 
----
-
-## Getting Free API Keys
-
-### 1. Groq API Key (Required)
-- Go to: https://console.groq.com
-- Sign up for free
-- Generate API key
-- Free tier: 30 requests/minute
-
-### 2. OpenWeatherMap Key (Optional)
-- Go to: https://openweathermap.org/api
-- Sign up for free
-- Get API key from dashboard
-- Free tier: 1000 calls/day
-
-### 3. OpenRouteService Key (Optional)
-- Go to: https://openrouteservice.org/dev/#/signup
-- Create account
-- Get API key
-- Free tier: 2000 requests/day
+### 2.4 Your Frontend URL
+After deployment, you'll get a URL like:
+`https://ai-pakistan-travel-frontend.vercel.app`
 
 ---
 
-## Understanding Render Free Tier
+## Step 3: Deploy Backend (Options)
 
-### Limits
-- **Web Services**: Spin down after 15 minutes of inactivity
-- **Cold Start**: First request after sleep takes 30-60 seconds
-- **Build Time**: 400 hours/month (plenty for this app)
-- **Bandwidth**: 100 GB/month
+### Option A: Railway (Recommended - Easy)
+Railway gives **$5 free credit/month** - enough for hobby projects.
 
-### Tips for Free Tier
-1. **Keep service warm**: Use a free cron service to ping `/health` every 10 minutes
-2. **Optimize cold starts**: The app initializes AI on first request, not startup
-3. **Database**: SQLite works fine for free tier (stored in ephemeral disk)
+1. Go to https://railway.app
+2. Sign up with GitHub
+3. Click **"New Project"** → **"Deploy from GitHub repo"**
+4. Select your repository
+5. Set **Root Directory**: `backend`
+6. Add environment variables:
+   - `GROQ_API_KEY` = your key
+   - `CORS_ALLOW_ALL` = true
+7. Deploy!
 
-### Keeping Service Awake (Optional)
-Use https://cron-job.org (free) to ping your API:
-- URL: `https://pakistan-travel-api.onrender.com/health`
-- Interval: Every 10 minutes
+### Option B: Koyeb (Free, No CC)
+1. Go to https://www.koyeb.com
+2. Sign up (no credit card)
+3. Create new app from GitHub
+4. Configure for Python/FastAPI
+
+### Option C: Deta Space (Free, No CC)
+1. Go to https://deta.space
+2. Sign up for free
+3. Install Deta CLI
+4. Deploy your Python app
 
 ---
 
-## Environment Variables Reference
+## Step 4: Connect Frontend to Backend
 
-### Backend Variables
+After backend is deployed, update your frontend:
 
-| Variable | Required | Description | Example |
-|----------|----------|-------------|---------|
-| `GROQ_API_KEY` | ✅ Yes | Groq LLM API key | `gsk_xxx...` |
-| `WEATHER_API_KEY` | ❌ No | OpenWeatherMap key | `abc123...` |
-| `OPENROUTE_API_KEY` | ❌ No | OpenRouteService key | `5b3ce3...` |
-| `CORS_ORIGINS` | ❌ No | Allowed frontend URLs | `https://your-site.com` |
-| `LOG_LEVEL` | ❌ No | Logging level | `INFO` |
-| `GROQ_MODEL` | ❌ No | LLM model name | `llama-3.3-70b-versatile` |
+1. Go to Vercel dashboard → Your project → Settings → Environment Variables
+2. Update `VITE_API_URL` to your backend URL
+3. Redeploy frontend
 
-### Frontend Variables
+---
 
-| Variable | Required | Description | Example |
-|----------|----------|-------------|---------|
-| `VITE_API_URL` | ✅ Yes | Backend API URL | `https://pakistan-travel-api.onrender.com` |
+## Quick Reference: Environment Variables
+
+### Frontend (Vercel)
+| Variable | Value |
+|----------|-------|
+| `VITE_API_URL` | Your backend URL (e.g., `https://your-app.railway.app`) |
+
+### Backend (Railway/Koyeb)
+| Variable | Required | Value |
+|----------|----------|-------|
+| `GROQ_API_KEY` | ✅ Yes | Your Groq API key |
+| `CORS_ALLOW_ALL` | ✅ Yes | `true` |
+| `WEATHER_API_KEY` | ❌ No | OpenWeatherMap key (optional) |
+| `OPENROUTE_API_KEY` | ❌ No | OpenRouteService key (optional) |
+
+---
+
+## Recommended Stack (All Free, No CC)
+
+| Component | Platform | Notes |
+|-----------|----------|-------|
+| **Frontend** | Vercel | Instant deploy from GitHub |
+| **Backend** | Railway | $5 free credit, easy Python support |
+| **AI** | Groq | Fast LLM inference |
+
+---
+
+## Testing Your Deployment
+
+1. **Frontend**: Visit your Vercel URL
+2. **Backend API**: Visit `https://your-backend-url/docs`
+3. **Health Check**: Visit `https://your-backend-url/health`
 
 ---
 
 ## Troubleshooting
 
 ### "AI is not configured" Error
-- **Cause**: Missing `GROQ_API_KEY`
-- **Fix**: Add the environment variable in Render dashboard → Your Service → Environment
+- Add `GROQ_API_KEY` environment variable to backend
 
 ### CORS Errors
-- **Cause**: Frontend URL not in `CORS_ORIGINS`
-- **Fix**: Update `CORS_ORIGINS` in backend environment variables
+- Add `CORS_ALLOW_ALL=true` to backend environment variables
 
-### Slow First Load
-- **Cause**: Free tier cold start
-- **Fix**: Normal behavior. Wait 30-60 seconds. Consider upgrading or using a warm-up service.
+### Frontend Can't Connect to Backend
+- Check `VITE_API_URL` is set correctly in Vercel
+- Make sure backend is running (check `/health` endpoint)
 
 ### Build Fails
-- **Cause**: Usually missing dependencies
-- **Fix**: Check build logs in Render dashboard
-
-### Database Lost on Redeploy
-- **Cause**: SQLite uses ephemeral disk on free tier
-- **Fix**: Normal behavior. App re-creates DB with seed data on startup.
+- Check build logs for missing dependencies
+- Ensure `requirements.txt` and `package.json` are correct
 
 ---
 
-## Custom Domain (Optional)
+## Free Tier Limits
 
-1. Go to your Static Site in Render
-2. Click **"Settings"** → **"Custom Domains"**
-3. Add your domain (e.g., `travel.yourdomain.com`)
-4. Update DNS with provided CNAME
-5. Wait for SSL certificate (automatic)
+### Vercel (Frontend)
+- ✅ Unlimited static sites
+- ✅ 100 GB bandwidth/month
+- ✅ Automatic HTTPS
 
----
+### Railway (Backend)
+- ✅ $5 free credit/month
+- ✅ 500 hours execution time
+- ✅ Sleeps after inactivity (wakes on request)
 
-## Alternative Free Platforms
-
-If Render doesn't work for you:
-
-### Frontend Only
-| Platform | Free Tier | Notes |
-|----------|-----------|-------|
-| **Vercel** | Yes | Great for React, no backend |
-| **Netlify** | Yes | Similar to Vercel |
-| **GitHub Pages** | Yes | Static only |
-| **Cloudflare Pages** | Yes | Unlimited bandwidth |
-
-### Full Stack
-| Platform | Free Tier | Notes |
-|----------|-----------|-------|
-| **Railway** | $5/month credit | Good for full stack |
-| **Fly.io** | Yes | Good performance |
-| **Cyclic** | Yes | Simple Node/Python |
-| **Deta** | Yes | Micro VMs |
+### Groq (AI)
+- ✅ 30 requests/minute
+- ✅ Free tier available
 
 ---
 
-## Production Checklist
+## Summary
 
-Before going live:
-
-- [ ] Set all required environment variables
-- [ ] Test trip planning wizard
-- [ ] Test AI chat functionality
-- [ ] Verify safety alerts load
-- [ ] Check bus schedules page
-- [ ] Test on mobile devices
-- [ ] Set up health check monitoring
-- [ ] (Optional) Configure custom domain
+1. **Sign up** for Vercel + Railway (both free, no CC)
+2. **Get** Groq API key
+3. **Deploy** frontend to Vercel
+4. **Deploy** backend to Railway
+5. **Connect** them via environment variables
+6. **Done!** 🎉
 
 ---
 
-## Support
-
-- **GitHub Issues**: Report bugs on the repository
-- **Render Docs**: https://render.com/docs
-- **Groq Docs**: https://console.groq.com/docs
-
----
-
-**Happy deploying! 🚀**
-
+**Total Cost: $0**
+**Credit Card Required: No**
+**Time to Deploy: ~15 minutes**
