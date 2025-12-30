@@ -406,7 +406,7 @@ Style                           Packing list
 | Component | Platform | Cost |
 |-----------|----------|------|
 | **Frontend** | Vercel | Free |
-| **Backend** | Koyeb | Free |
+| **Backend** | Deployra | Free |
 | **Database** | SQLite (embedded) | Free |
 
 ---
@@ -629,8 +629,8 @@ POST /api/trip/plan
 | Service | URL |
 |---------|-----|
 | **Frontend** | https://ai-pakistan-travel-planner-safety-g.vercel.app |
-| **Backend** | https://productive-ludovika-hamza-student-beee9ced.koyeb.app |
-| **API Docs** | https://productive-ludovika-hamza-student-beee9ced.koyeb.app/docs |
+| **Backend** | https://your-app.deployra.app (after deployment) |
+| **API Docs** | https://your-app.deployra.app/docs |
 
 ### 12.2 Deployment Architecture
 

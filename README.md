@@ -308,14 +308,14 @@ Full API documentation at `/docs` when running.
 
 ## 🚀 Deploy to Cloud (Free - No Credit Card)
 
-Deploy for **FREE** using **Vercel** (frontend) + **Koyeb** (backend).
+Deploy for **FREE** using **Vercel** (frontend) + **Deployra** (backend).
 
 ### Live Demo
 
 | Service | URL |
 |---------|-----|
 | **Frontend** | https://ai-pakistan-travel-planner-safety-g.vercel.app |
-| **Backend API** | https://productive-ludovika-hamza-student-beee9ced.koyeb.app |
+| **Backend API** | Your Deployra URL (see DEPLOYMENT.md) |
 
 ### Quick Deploy
 
@@ -323,7 +323,7 @@ Deploy for **FREE** using **Vercel** (frontend) + **Koyeb** (backend).
 |------|--------|
 | 1 | Push code to GitHub |
 | 2 | Deploy frontend on [Vercel](https://vercel.com) (free, no CC) |
-| 3 | Deploy backend on [Koyeb](https://koyeb.com) (free, no CC) |
+| 3 | Deploy backend on [Deployra](https://deployra.com) (free, no CC) |
 | 4 | Set `GROQ_API_KEY` environment variable |
 | 5 | Done! 🎉 |
 
@@ -332,7 +332,7 @@ Deploy for **FREE** using **Vercel** (frontend) + **Koyeb** (backend).
 | Platform | For | Credit Card |
 |----------|-----|-------------|
 | **Vercel** | Frontend | ❌ Not required |
-| **Koyeb** | Backend | ❌ Not required |
+| **Deployra** | Backend | ❌ Not required |
 | **Groq** | AI/LLM | ❌ Not required |
 
 📖 See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step instructions.
